@@ -1,0 +1,29 @@
+@startuml Abogado
+
+actor Abogado
+
+package "Módulo Abogado" {
+  
+  usecase "Revisar denuncias" as UC1
+  usecase "Generar reportes legales" as UC2
+  usecase "Asesoría legal" as UC3
+  usecase "Revisión de términos y condiciones" as UC4
+
+  UC1 : "Revisar las denuncias pendientes de revisión"
+  UC2 : "Generar reportes legales de actividades ilegales o abusivas"
+  UC3 : "Proveer asesoría legal sobre políticas de la plataforma"
+  UC4 : "Revisar y actualizar términos de uso y políticas de privacidad"
+
+  Abogado --> UC1
+  Abogado --> UC2
+  Abogado --> UC3
+  Abogado --> UC4
+
+  ' Relaciones de Extends y Includes
+
+  UC3 -[extend]-> UC4 : "Revisión de términos y condiciones necesaria"
+  UC2 -[include]-> UC1 : "Dependiente de las denuncias"
+
+}
+
+@enduml

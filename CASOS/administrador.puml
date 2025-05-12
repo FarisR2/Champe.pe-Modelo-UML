@@ -25,7 +25,7 @@ rectangle "Sistema Chamba.pe" {
   ' Relaciones extend/include
   UC01 --> UC02 : <<include>>
   UC01 --> UC08 : <<extend>>
-  ' UC04 --> UC05 : <<extend>>   <-- Eliminada según tu indicación
+  UC04 --> UC05 : <<extend>>
 }
 
 ' Conexiones del actor
