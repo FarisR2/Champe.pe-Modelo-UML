@@ -1,0 +1,39 @@
+@startuml uml
+left to right direction
+skinparam packageStyle rectangle
+skinparam backgroundColor #ffffff
+skinparam usecase {
+  BackgroundColor #e6e6fa
+  BorderColor #5a5a99
+  ArrowColor Black
+  FontColor Black
+}
+
+actor Administrador
+
+rectangle "Sistema Chamba.pe" {
+  
+  usecase "Gestionar usuarios" as UC01
+  usecase "Aprobar registros" as UC02
+  usecase "Gestionar ofertas de trabajo" as UC03
+  usecase "Gestionar contenido de ayuda" as UC04
+  usecase "Ver estadísticas generales" as UC05
+  usecase "Gestionar reportes de usuarios" as UC06
+  usecase "Configurar parámetros del sistema" as UC07
+  usecase "Suspender o eliminar cuentas" as UC08
+  
+  ' Relaciones extend/include
+  UC01 --> UC02 : <<include>>
+  UC01 --> UC08 : <<extend>>
+  UC04 --> UC05 : <<extend>>
+}
+
+' Conexiones del actor
+Administrador --> UC01 : administrar usuarios
+Administrador --> UC03 : administrar ofertas
+Administrador --> UC04 : actualizar ayuda
+Administrador --> UC05 : revisar estadísticas
+Administrador --> UC06 : atender reportes
+Administrador --> UC07 : configurar sistema
+
+@enduml

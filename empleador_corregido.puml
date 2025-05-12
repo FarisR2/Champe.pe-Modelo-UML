@@ -1,0 +1,56 @@
+@startuml empleador
+left to right direction
+skinparam packageStyle rectangle
+skinparam backgroundColor #ffffff
+skinparam usecase {
+  BackgroundColor #e6e6fa
+  BorderColor #5a5a99
+  ArrowColor Black
+  FontColor Black
+}
+
+actor Empleador
+
+rectangle "Módulo Empleador" {
+
+  ' Casos de uso generales
+  usecase "Registrar empresa" as UC1
+  usecase "Publicar trabajo" as UC2
+  usecase "Buscar trabajadores" as UC3
+
+  ' Casos de uso secundarios de Registrar empresa
+  usecase "Validar existencia de la empresa" as UC1A
+
+  ' Casos de uso secundarios de Publicar trabajo
+  usecase "Crear publicación" as UC2A
+  usecase "Especificar fecha" as UC2B
+  usecase "Editar y eliminar publicación" as UC2C
+  usecase "Elegir modalidad de trabajo" as UC2D
+  usecase "Subir fotos del lugar" as UC2E
+
+  ' Casos de uso secundarios de Buscar trabajadores
+  usecase "Filtrar por disponibilidad" as UC3A
+  usecase "Ver trabajadores cercanos" as UC3B
+  usecase "Aplicar filtros de confianza" as UC3C
+
+  ' Relaciones include y extend
+  UC1 --> UC1A : <<include>>
+
+  UC2 --> UC2A : <<include>>
+  UC2 --> UC2B : <<include>>
+  UC2 --> UC2C : <<include>>
+  UC2 --> UC2D : <<extend>>
+  UC2 --> UC2E : <<extend>>
+
+  UC3 --> UC3A : <<include>>
+  UC3 --> UC3B : <<extend>>
+  UC3 --> UC3C : <<extend>>
+
+}
+
+' Conexiones del actor con nombres personalizados
+Empleador --> UC1 : Crear cuenta
+Empleador --> UC2 : Crear oferta de trabajo
+Empleador --> UC3 : Búsqueda de empleadores
+
+@enduml

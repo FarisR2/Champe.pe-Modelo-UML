@@ -1,0 +1,43 @@
+@startuml uml
+left to right direction
+skinparam packageStyle rectangle
+skinparam backgroundColor #ffffff
+skinparam usecase {
+  BackgroundColor #e6e6fa
+  BorderColor #5a5a99
+  ArrowColor Black
+  FontColor Black
+}
+
+actor Abogado
+
+rectangle "Módulo Abogado" {
+
+  ' Casos de uso generales
+  usecase "Gestionar denuncias" as UC1
+  usecase "Proveer asesoría legal" as UC2
+
+  ' Casos de uso secundarios de Gestionar denuncias
+  usecase "Verificar antecedentes penales" as UC1A
+  usecase "Supervisar prohibición trabajo infantil" as UC1B
+  usecase "Generar reportes legales" as UC1C
+
+  ' Casos de uso secundarios de Proveer asesoría legal
+  usecase "Revisar políticas respeto y convivencia" as UC2A
+  usecase "Gestionar consentimiento informado" as UC2B
+
+  ' Relaciones include (rectas)
+  UC1 --> UC1A : <<include>>
+  UC1 --> UC1B : <<include>>
+  UC1 --> UC1C : <<include>>
+
+  UC2 --> UC2A : <<include>>
+  UC2 --> UC2B : <<include>>
+
+}
+
+' Conexiones del actor (solo a los casos de uso generales)
+Abogado --> UC1
+Abogado --> UC2
+
+@enduml
