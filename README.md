@@ -12,6 +12,6 @@ Los siguientes archivos `.puml` representan diferentes módulos del sistema:
 | `administrador.puml` | Funciones administrativas: gestión de usuarios, ofertas, reportes y configuración |
 | `abogado.puml` | Funciones del Abogado: asesoría legal y supervisión de denuncias |
 | `empleador.puml` | Funciones del Empleador: registro, publicación de trabajos y búsqueda de trabajadores |
-| `general.puml` | Diagrama general de alto nivel que integra los módulos anteriores (opcional) |
+| `general.puml` | Diagrama general de alto nivel que integra los módulos anteriores |
 
 ---
