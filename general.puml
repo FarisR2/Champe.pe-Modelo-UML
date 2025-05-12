@@ -31,7 +31,7 @@ rectangle "Sistema Chamba.pe" {
   UC01 --> UC02 : <<include>>
   UC01 --> UC07 : <<include>>
   UC01 --> UC08 : <<include>>
-  UC04 --> UC05 : <<extend>>
+ 
 
 }
 
