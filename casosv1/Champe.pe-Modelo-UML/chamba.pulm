@@ -1,0 +1,124 @@
+@startuml sistema_chamba_completo
+left to right direction
+skinparam packageStyle rectangle
+skinparam backgroundColor #ffffff
+skinparam usecase {
+  BackgroundColor #f0f8ff
+  BorderColor #4682b4
+  ArrowColor Black
+  FontColor Black
+}
+
+actor Abogado
+actor Administrador
+actor Empleador
+actor Usuario
+
+package "Módulo Abogado" {
+  usecase "Gestionar denuncias" as ABO_UC1
+  usecase "Proveer asesoría legal" as ABO_UC2
+  usecase "Verificar antecedentes penales" as ABO_UC1A
+  usecase "Supervisar prohibición de trabajo infantil" as ABO_UC1B
+  usecase "Generar reportes legales" as ABO_UC1C
+  usecase "Revisar políticas de convivencia" as ABO_UC2A
+  usecase "Gestionar consentimiento informado" as ABO_UC2B
+
+  ABO_UC1 --> ABO_UC1A : <<include>>
+  ABO_UC1 --> ABO_UC1B : <<include>>
+  ABO_UC1 --> ABO_UC1C : <<include>>
+  ABO_UC2 --> ABO_UC2A : <<include>>
+  ABO_UC2 --> ABO_UC2B : <<include>>
+
+  Abogado --> ABO_UC1
+  Abogado --> ABO_UC2
+}
+
+package "Módulo Administrador" {
+  usecase "Gestionar usuarios" as ADM_UC1
+  usecase "Aprobar registros" as ADM_UC2
+  usecase "Gestionar ofertas de trabajo" as ADM_UC3
+  usecase "Gestionar contenido de ayuda" as ADM_UC4
+  usecase "Ver estadísticas generales" as ADM_UC5
+  usecase "Gestionar reportes de usuarios" as ADM_UC6
+  usecase "Configurar parámetros del sistema" as ADM_UC7
+  usecase "Suspender o eliminar cuentas" as ADM_UC8
+  usecase "Restaurar cuenta" as ADM_UC9
+
+  ADM_UC1 --> ADM_UC2 : <<include>>
+  ADM_UC1 --> ADM_UC8 : <<extend>>
+  ADM_UC1 --> ADM_UC9 : <<extend>>
+
+  Administrador --> ADM_UC1
+  Administrador --> ADM_UC3
+  Administrador --> ADM_UC4
+  Administrador --> ADM_UC5
+  Administrador --> ADM_UC6
+  Administrador --> ADM_UC7
+}
+
+package "Módulo Empleador" {
+  usecase "Registrar empresa" as EMP_UC1
+  usecase "Publicar oferta de trabajo" as EMP_UC2
+  usecase "Buscar trabajadores" as EMP_UC3
+  usecase "Validar existencia de empresa" as EMP_UC1A
+  usecase "Crear publicación" as EMP_UC2A
+  usecase "Especificar fecha" as EMP_UC2B
+  usecase "Editar o eliminar publicación" as EMP_UC2C
+  usecase "Elegir modalidad de trabajo" as EMP_UC2D
+  usecase "Subir fotos del lugar" as EMP_UC2E
+  usecase "Filtrar por disponibilidad" as EMP_UC3A
+  usecase "Ver trabajadores cercanos" as EMP_UC3B
+  usecase "Aplicar filtros de confianza" as EMP_UC3C
+
+  EMP_UC1 --> EMP_UC1A : <<include>>
+  EMP_UC2 --> EMP_UC2A : <<include>>
+  EMP_UC2 --> EMP_UC2B : <<include>>
+  EMP_UC2 --> EMP_UC2C : <<include>>
+  EMP_UC2 --> EMP_UC2D : <<extend>>
+  EMP_UC2 --> EMP_UC2E : <<extend>>
+  EMP_UC3 --> EMP_UC3A : <<include>>
+  EMP_UC3 --> EMP_UC3B : <<extend>>
+  EMP_UC3 --> EMP_UC3C : <<extend>>
+
+  Empleador --> EMP_UC1
+  Empleador --> EMP_UC2
+  Empleador --> EMP_UC3
+}
+
+package "Módulo Usuario" {
+  usecase "Registrarse" as USR_UC1
+  usecase "Validar identidad" as USR_UC2
+  usecase "Editar perfil" as USR_UC3
+  usecase "Configurar disponibilidad" as USR_UC4
+  usecase "Postular a trabajos" as USR_UC5
+  usecase "Guardar trabajos favoritos" as USR_UC6
+  usecase "Ver estadísticas y reputación" as USR_UC7
+  usecase "Eliminar cuenta" as USR_UC8
+  usecase "Participar en selección automática" as USR_UC9
+  usecase "Acceder a ayuda multimedia" as USR_UX1
+  usecase "Texto accesible" as USR_UX2
+  usecase "Cambiar idioma o dialecto" as USR_UX3
+  usecase "Modo oscuro" as USR_UX4
+  usecase "Interfaz adaptable" as USR_UX5
+  usecase "Minimizar tiempos de carga" as USR_UX6
+  usecase "Recuperar cuenta" as USR_UC10
+
+  USR_UC1 --> USR_UC2 : <<include>>
+  USR_UC1 --> USR_UC10 : <<extend>>
+  USR_UC5 --> USR_UC6 : <<extend>>
+  USR_UC7 --> USR_UC9 : <<extend>>
+  USR_UX1 --> USR_UX2 : <<include>>
+  USR_UX1 --> USR_UX3 : <<include>>
+  USR_UX2 --> USR_UX4 : <<extend>>
+  USR_UX5 --> USR_UX6 : <<extend>>
+
+  Usuario --> USR_UC1
+  Usuario --> USR_UC3
+  Usuario --> USR_UC4
+  Usuario --> USR_UC5
+  Usuario --> USR_UC7
+  Usuario --> USR_UC8
+  Usuario --> USR_UX1
+  Usuario --> USR_UX5
+}
+@enduml

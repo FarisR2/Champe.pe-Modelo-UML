@@ -1,0 +1,136 @@
+@startuml uml
+left to right direction
+skinparam packageStyle rectangle
+skinparam backgroundColor #ffffff
+skinparam usecase {
+  BackgroundColor #e6e6fa
+  BorderColor #5a5a99
+  ArrowColor Black
+  FontColor Black
+}
+
+actor Usuario
+actor Empleador
+actor Administrador
+actor Abogado
+
+rectangle "Sistema Chamba.pe" {
+
+  ' Casos de uso del usuario
+  usecase "Registrarse" as U_UC01
+  usecase "Validar identidad" as U_UC02
+  usecase "Editar perfil" as U_UC03
+  usecase "Configurar disponibilidad" as U_UC04
+  usecase "Postular a trabajos" as U_UC05
+  usecase "Guardar trabajos favoritos" as U_UC06
+  usecase "Ver estadísticas y reputación" as U_UC07
+  usecase "Eliminar cuenta" as U_UC08
+  usecase "Participar en selección automática" as U_UC09
+  usecase "Incluir sin discriminación" as U_UC10
+
+  usecase "Ver ayuda multimedia" as U_UX01
+  usecase "Texto grande y legible" as U_UX02
+  usecase "Cambiar idioma o dialecto" as U_UX03
+  usecase "Modo oscuro" as U_UX04
+  usecase "Interfaz adaptable" as U_UX05
+  usecase "Minimizar tiempos de carga" as U_UX06
+
+  ' Casos de uso del empleador
+  usecase "Registrar empresa en la plataforma" as E_UC01
+  usecase "Validar existencia de la empresa" as E_UC01A
+
+  usecase "Publicar trabajo" as E_UC02
+  usecase "Crear publicación de trabajo" as E_UC02A
+  usecase "Especificar fecha de la publicación" as E_UC02B
+  usecase "Editar y eliminar publicación" as E_UC02C
+  usecase "Elegir modalidad de trabajo" as E_UC02D
+  usecase "Subir fotos del lugar" as E_UC02E
+
+  usecase "Buscar trabajadores" as E_UC03
+  usecase "Filtrar trabajadores según disponibilidad" as E_UC03A
+  usecase "Ver trabajadores cercanos a la ubicación" as E_UC03B
+  usecase "Aplicar filtros de confianza" as E_UC03C
+
+  ' Casos de uso del administrador
+  usecase "Gestionar usuarios" as A_UC01
+  usecase "Aprobar registros" as A_UC02
+  usecase "Gestionar ofertas de trabajo" as A_UC03
+  usecase "Gestionar contenido de ayuda" as A_UC04
+  usecase "Ver estadísticas generales" as A_UC05
+  usecase "Gestionar reportes de usuarios" as A_UC06
+  usecase "Configurar parámetros del sistema" as A_UC07
+  usecase "Suspender o eliminar cuentas" as A_UC08
+
+  ' Casos de uso del abogado
+  usecase "Gestionar denuncias" as L_UC01
+  usecase "Proveer asesoría legal" as L_UC02
+  usecase "Verificar antecedentes penales" as L_UC01A
+  usecase "Supervisar prohibición trabajo infantil" as L_UC01B
+  usecase "Generar reportes legales" as L_UC01C
+  usecase "Revisar políticas respeto y convivencia" as L_UC02A
+  usecase "Gestionar consentimiento informado" as L_UC02B
+
+  ' Relaciones internas
+  U_UC01 --> U_UC02 : <<include>>
+  U_UC05 --> U_UC06 : <<extend>>
+  U_UC03 --> U_UC10 : <<extend>>
+  U_UC07 --> U_UC09 : <<extend>>
+
+  U_UX01 --> U_UX02 : <<include>>
+  U_UX01 --> U_UX03 : <<include>>
+  U_UX02 --> U_UX04 : <<extend>>
+  U_UX05 --> U_UX06 : <<extend>>
+
+  E_UC01 --> E_UC01A : <<include>>
+  E_UC02 --> E_UC02A : <<include>>
+  E_UC02 --> E_UC02B : <<include>>
+  E_UC02 --> E_UC02C : <<include>>
+  E_UC02 --> E_UC02D : <<extend>>
+  E_UC02 --> E_UC02E : <<extend>>
+
+  E_UC03 --> E_UC03A : <<include>>
+  E_UC03 --> E_UC03B : <<extend>>
+  E_UC03 --> E_UC03C : <<extend>>
+
+  A_UC01 --> A_UC02 : <<include>>
+  A_UC01 --> A_UC08 : <<extend>>
+  A_UC04 --> A_UC05 : <<extend>>
+
+  L_UC01 --> L_UC01A : <<include>>
+  L_UC01 --> L_UC01B : <<include>>
+  L_UC01 --> L_UC01C : <<include>>
+  L_UC02 --> L_UC02A : <<include>>
+  L_UC02 --> L_UC02B : <<include>>
+
+  ' Relaciones entre actores y casos de uso
+  Usuario --> U_UC01
+  Usuario --> U_UC03
+  Usuario --> U_UC04
+  Usuario --> U_UC05
+  Usuario --> U_UC07
+  Usuario --> U_UC08
+  Usuario --> U_UX01
+  Usuario --> U_UX05
+
+  Empleador --> E_UC01
+  Empleador --> E_UC02
+  Empleador --> E_UC03
+
+  Administrador --> A_UC01
+  Administrador --> A_UC03
+  Administrador --> A_UC04
+  Administrador --> A_UC05
+  Administrador --> A_UC06
+  Administrador --> A_UC07
+
+  Abogado --> L_UC01
+  Abogado --> L_UC02
+
+  ' Relaciones cruzadas entre módulos
+  U_UC02 --> L_UC01A : <<include>>
+  U_UC07 --> A_UC05 : <<include>>
+  A_UC06 --> L_UC01 : <<include>>
+  A_UC08 --> L_UC01 : <<include>>
+  E_UC03C --> L_UC01 : <<include>>
+}
+@enduml

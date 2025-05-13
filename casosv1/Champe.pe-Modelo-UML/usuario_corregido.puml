@@ -1,0 +1,54 @@
+@startuml uml
+left to right direction
+skinparam packageStyle rectangle
+skinparam backgroundColor #ffffff
+skinparam usecase {
+  BackgroundColor #e6e6fa
+  BorderColor #5a5a99
+  ArrowColor Black
+  FontColor Black
+}
+
+actor Usuario
+
+rectangle "Sistema Chamba.pe" {
+  
+  usecase "Registrarse" as UC01
+  usecase "Validar identidad" as UC02
+  usecase "Editar perfil" as UC03
+  usecase "Configurar disponibilidad" as UC04
+  usecase "Postular a trabajos" as UC05
+  usecase "Guardar trabajos favoritos" as UC06
+  usecase "Ver estadísticas y reputación" as UC07
+  usecase "Eliminar cuenta" as UC08
+  usecase "Participar en selección automática" as UC09
+
+  usecase "Ver ayuda multimedia" as UX01
+  usecase "Texto grande y legible" as UX02
+  usecase "Cambiar idioma o dialecto" as UX03
+  usecase "Modo oscuro" as UX04
+  usecase "Interfaz adaptable" as UX05
+  usecase "Minimizar tiempos de carga" as UX06
+
+  ' Relaciones extend/include
+  UC01 --> UC02 : <<include>>
+  UC05 --> UC06 : <<extend>>
+  UC07 --> UC09 : <<extend>>
+
+  UX01 --> UX02 : <<include>>
+  UX01 --> UX03 : <<include>>
+  UX02 --> UX04 : <<extend>>
+  UX05 --> UX06 : <<extend>>
+}
+
+' Conexiones del actor
+Usuario --> UC01 : Crear cuenta
+Usuario --> UC03 : Personalizar perfil
+Usuario --> UC04 : Definir horarios
+Usuario --> UC05 : Aplicar a ofertas
+Usuario --> UC07 : Revisar desempeño
+Usuario --> UC08 : Cerrar cuenta
+Usuario --> UX01 : Ayuda
+Usuario --> UX05 : Navegar
+
+@enduml
