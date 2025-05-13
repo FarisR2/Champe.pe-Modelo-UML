@@ -1,0 +1,51 @@
+@startuml uml
+left to right direction
+skinparam packageStyle rectangle
+skinparam backgroundColor #ffffff
+skinparam usecase {
+  BackgroundColor #e6e6fa
+  BorderColor #5a5a99
+  ArrowColor Black
+  FontColor Black
+}
+
+actor "Abogado" as Abogado
+actor "Administrador" as Administrador
+actor "Usuario" as Usuario
+actor "Empleador" as Empleador
+
+rectangle "Sistema Chamba.pe" {
+
+  ' Casos de uso generales
+  usecase "Gestionar usuarios" as UC01
+  usecase "Gestionar denuncias" as UC02
+  usecase "Gestionar ofertas de trabajo" as UC03
+  usecase "Gestionar contenido de ayuda" as UC04
+  usecase "Ver estadísticas y reportes" as UC05
+  usecase "Registrar empresa" as UC06
+  usecase "Publicar trabajo" as UC07
+  usecase "Buscar trabajadores" as UC08
+  usecase "Proveer asesoría legal" as UC09
+
+  ' Relaciones include/extend
+  UC01 --> UC02 : <<include>>
+  UC01 --> UC07 : <<include>>
+  UC01 --> UC08 : <<include>>
+ 
+
+}
+
+' Relaciones de actores con casos de uso
+Abogado --> UC09 : Proveer asesoría legal
+Administrador --> UC01 : Administrar usuarios
+Administrador --> UC03 : Administrar ofertas
+Administrador --> UC04 : Actualizar ayuda
+Administrador --> UC05 : Revisar estadísticas
+Empleador --> UC06 : Registrar empresa
+Empleador --> UC07 : Crear ofertas
+Empleador --> UC08 : Buscar trabajadores
+Usuario --> UC01 : Crear cuenta
+Usuario --> UC03 : Personalizar perfil
+Usuario --> UC05 : Ver estadísticas
+
+@enduml
