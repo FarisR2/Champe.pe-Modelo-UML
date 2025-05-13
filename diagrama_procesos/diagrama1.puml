@@ -1,0 +1,123 @@
+@startuml DIAGRAMA PROCESOS
+
+entity CLIENTE {
+    *idCliente : int <<PK>>
+    --
+    nombre : string
+    apellido : string
+    dni : string
+    email : string
+    contraseña : string
+    fechaNacimiento : date
+}
+
+entity CELULARES {
+    *clienteId : int <<FK>>
+    celular : string
+}
+
+entity DIRECCION_CLIENTE {
+    *clienteId : int <<FK>>
+    calle : string
+    numero : string
+    ciudad : string
+}
+
+entity ESTADISTICAS {
+    *idEstadistica : int <<PK>>
+    --
+    calificacionPromedio : float
+    comentariosPositivos : string
+    comentariosNegativos : string
+    trabajosRealizados : int
+    clienteId : int <<FK>>
+}
+
+entity TRABAJO {
+    *idTrabajo : int <<PK>>
+    --
+    nombre : string
+    descripcion : string
+    numeroContacto : string
+    fechaPublicacion : date
+    fechaLimite : date
+}
+
+entity DIRECCION_TRABAJO {
+    *trabajoId : int <<FK>>
+    calle : string
+    numero : string
+    ciudad : string
+}
+
+entity EMPRESA {
+    *idEmpresa : int <<PK>>
+    --
+    nombre : string
+    ruc : string
+}
+
+entity EMPLEADOR {
+    *idEmpleador : int <<PK>>
+    --
+    idEmpresa : int <<FK>>
+    direccion : string
+    calle : string
+    numero : string
+    ciudad : string
+    telefono : string
+}
+
+entity ADMINISTRADOR {
+    *idAdministrador : int <<PK>>
+    --
+    nombre : string
+    dni : string
+    email : string
+}
+
+entity DENUNCIA {
+    *idDenuncia : int <<PK>>
+}
+
+entity POSTULA {
+    *clienteId : int <<FK>>
+    *trabajoId : int <<FK>>
+}
+
+entity PUBLICA {
+    *empleadorId : int <<FK>>
+    *trabajoId : int <<FK>>
+}
+
+entity REALIZA {
+    *clienteId : int <<FK>>
+    *trabajoId : int <<FK>>
+}
+
+entity VALIDA {
+    *empleadorId : int <<FK>>
+    *administradorId : int <<FK>>
+    observaciones : string
+}
+
+' Relaciones
+CLIENTE ||--o{ CELULARES : tiene
+CLIENTE ||--o{ DIRECCION_CLIENTE : vive_en
+CLIENTE ||--o{ ESTADISTICAS : genera
+CLIENTE ||--o{ POSTULA : postula
+CLIENTE ||--o{ REALIZA : realiza
+CLIENTE ||--o{ DENUNCIA : denuncia
+
+TRABAJO ||--o{ DIRECCION_TRABAJO : ubicado_en
+TRABAJO ||--o{ POSTULA : tiene
+TRABAJO ||--o{ PUBLICA : publicado_por
+TRABAJO ||--o{ REALIZA : hecho_por
+
+EMPLEADOR ||--o{ PUBLICA : publica
+EMPLEADOR ||--o{ VALIDA : validado_por
+EMPLEADOR }o--|| EMPRESA : pertenece
+
+ADMINISTRADOR ||--o{ VALIDA : valida
+
+@enduml
