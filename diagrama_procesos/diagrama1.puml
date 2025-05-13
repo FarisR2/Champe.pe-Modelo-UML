@@ -1,123 +1,36 @@
-@startuml DIAGRAMA PROCESOS
+@startuml Diagrama de Procesos
+start
 
-entity CLIENTE {
-    *idCliente : int <<PK>>
-    --
-    nombre : string
-    apellido : string
-    dni : string
-    email : string
-    contraseña : string
-    fechaNacimiento : date
-}
+:Registrar Cliente;
+:Iniciar Sesión;
 
-entity CELULARES {
-    *clienteId : int <<FK>>
-    celular : string
-}
+if (¿Publicar trabajo?) then (sí)
+  :Cliente publica trabajo;
+  :Trabajo queda disponible;
+else
+endif
 
-entity DIRECCION_CLIENTE {
-    *clienteId : int <<FK>>
-    calle : string
-    numero : string
-    ciudad : string
-}
+if (¿Trabajador postula?) then (sí)
+  :Trabajador postula a trabajo;
+  :Cliente elige trabajador;
+else
+endif
 
-entity ESTADISTICAS {
-    *idEstadistica : int <<PK>>
-    --
-    calificacionPromedio : float
-    comentariosPositivos : string
-    comentariosNegativos : string
-    trabajosRealizados : int
-    clienteId : int <<FK>>
-}
+:Se realiza trabajo;
 
-entity TRABAJO {
-    *idTrabajo : int <<PK>>
-    --
-    nombre : string
-    descripcion : string
-    numeroContacto : string
-    fechaPublicacion : date
-    fechaLimite : date
-}
+if (¿Evaluar trabajo?) then (sí)
+  :Cliente genera estadísticas;
+else
+endif
 
-entity DIRECCION_TRABAJO {
-    *trabajoId : int <<FK>>
-    calle : string
-    numero : string
-    ciudad : string
-}
+if (¿Problema con trabajo?) then (sí)
+  :Cliente o Empleador realiza denuncia;
+  :Denuncia es gestionada por Gestor;
+  :Gestor asigna a Abogado;
+  :Abogado investiga y reporta;
+else
+endif
 
-entity EMPRESA {
-    *idEmpresa : int <<PK>>
-    --
-    nombre : string
-    ruc : string
-}
-
-entity EMPLEADOR {
-    *idEmpleador : int <<PK>>
-    --
-    idEmpresa : int <<FK>>
-    direccion : string
-    calle : string
-    numero : string
-    ciudad : string
-    telefono : string
-}
-
-entity ADMINISTRADOR {
-    *idAdministrador : int <<PK>>
-    --
-    nombre : string
-    dni : string
-    email : string
-}
-
-entity DENUNCIA {
-    *idDenuncia : int <<PK>>
-}
-
-entity POSTULA {
-    *clienteId : int <<FK>>
-    *trabajoId : int <<FK>>
-}
-
-entity PUBLICA {
-    *empleadorId : int <<FK>>
-    *trabajoId : int <<FK>>
-}
-
-entity REALIZA {
-    *clienteId : int <<FK>>
-    *trabajoId : int <<FK>>
-}
-
-entity VALIDA {
-    *empleadorId : int <<FK>>
-    *administradorId : int <<FK>>
-    observaciones : string
-}
-
-' Relaciones
-CLIENTE ||--o{ CELULARES : tiene
-CLIENTE ||--o{ DIRECCION_CLIENTE : vive_en
-CLIENTE ||--o{ ESTADISTICAS : genera
-CLIENTE ||--o{ POSTULA : postula
-CLIENTE ||--o{ REALIZA : realiza
-CLIENTE ||--o{ DENUNCIA : denuncia
-
-TRABAJO ||--o{ DIRECCION_TRABAJO : ubicado_en
-TRABAJO ||--o{ POSTULA : tiene
-TRABAJO ||--o{ PUBLICA : publicado_por
-TRABAJO ||--o{ REALIZA : hecho_por
-
-EMPLEADOR ||--o{ PUBLICA : publica
-EMPLEADOR ||--o{ VALIDA : validado_por
-EMPLEADOR }o--|| EMPRESA : pertenece
-
-ADMINISTRADOR ||--o{ VALIDA : valida
-
+:Administrador valida denuncias;
+stop
 @enduml
