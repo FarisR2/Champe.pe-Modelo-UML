@@ -2,7 +2,7 @@
 !define table(x) class x << (T,#FFAAAA) >>
 skinparam classAttributeIconSize 0
 
-'====================== Tablas principales ======================'
+'====================== Tablas de Usuario ======================'
 
 table(Usuario) {
   +id_usuario: INT <<PK>>
@@ -20,6 +20,41 @@ table(Usuario) {
   id_departamento: INT <<FK>>
 }
 
+table(Disponibilidad) {
+  +id_disponibilidad: INT <<PK>>
+  id_usuario: INT <<FK>>
+  dias: VARCHAR
+  horas: VARCHAR
+}
+
+table(Verificacion) {
+  +id_verificacion: INT <<PK>>
+  id_usuario: INT <<FK>>
+  tipo: ENUM('correo','sms','documento')
+  estado: ENUM('pendiente','verificado','fallido')
+  fecha: DATE
+}
+
+table(Calificacion) {
+  +id_calificacion: INT <<PK>>
+  id_emisor: INT <<FK>>
+  id_receptor: INT <<FK>>
+  puntuacion: INT
+  comentario: TEXT
+  fecha: DATE
+}
+
+table(Denuncia) {
+  +id_denuncia: INT <<PK>>
+  id_reportante: INT <<FK>>
+  id_denunciado: INT <<FK>>
+  motivo: TEXT
+  fecha: DATE
+  estado: ENUM('pendiente','resuelta')
+}
+
+'====================== Habilidades y Categorías ======================'
+
 table(Habilidad) {
   +id_habilidad: INT <<PK>>
   nombre: VARCHAR
@@ -33,22 +68,6 @@ table(Usuario_Habilidad) {
   experiencia_anios: INT
 }
 
-table(Disponibilidad) {
-  +id_disponibilidad: INT <<PK>>
-  id_usuario: INT <<FK>>
-  dias: VARCHAR
-  horas: VARCHAR
-}
-
-table(Empleador) {
-  +id_empleador: INT <<PK>>
-  id_usuario: INT <<FK>>
-  nombre_empresa: VARCHAR
-  ruc: VARCHAR
-  direccion: TEXT
-  validado: BOOLEAN
-}
-
 table(CategoriaTrabajo) {
   +id_categoria: INT <<PK>>
   nombre: VARCHAR
@@ -58,6 +77,17 @@ table(CategoriaTrabajo) {
 table(Usuario_Categoria) {
   +id_usuario: INT <<PK, FK>>
   +id_categoria: INT <<PK, FK>>
+}
+
+'====================== Empleador y Ofertas ======================'
+
+table(Empleador) {
+  +id_empleador: INT <<PK>>
+  id_usuario: INT <<FK>>
+  nombre_empresa: VARCHAR
+  ruc: VARCHAR
+  direccion: TEXT
+  validado: BOOLEAN
 }
 
 table(OfertaTrabajo) {
@@ -83,40 +113,7 @@ table(Postulacion) {
   mensaje: TEXT
 }
 
-table(Calificacion) {
-  +id_calificacion: INT <<PK>>
-  id_emisor: INT <<FK>>
-  id_receptor: INT <<FK>>
-  puntuacion: INT
-  comentario: TEXT
-  fecha: DATE
-}
-
-table(Denuncia) {
-  +id_denuncia: INT <<PK>>
-  id_reportante: INT <<FK>>
-  id_denunciado: INT <<FK>>
-  motivo: TEXT
-  fecha: DATE
-  estado: ENUM('pendiente','resuelta')
-}
-
-table(Verificacion) {
-  +id_verificacion: INT <<PK>>
-  id_usuario: INT <<FK>>
-  tipo: ENUM('correo','sms','documento')
-  estado: ENUM('pendiente','verificado','fallido')
-  fecha: DATE
-}
-
-table(PoliticaLegal) {
-  +id_politica: INT <<PK>>
-  tipo: VARCHAR
-  contenido: TEXT
-  fecha_actualizacion: DATE
-}
-
-'====================== Tablas de Ubicación ======================'
+'====================== Ubicación ======================'
 
 table(Departamento) {
   +id_departamento: INT <<PK>>
@@ -147,7 +144,7 @@ table(Avenida) {
   nombre: VARCHAR
 }
 
-'====================== Tabla de Filtro por Zona ======================'
+'====================== Filtro de trabajos ======================'
 
 table(FiltrarTrabajosPorZona) {
   +id_filtro: INT <<PK>>
@@ -155,6 +152,15 @@ table(FiltrarTrabajosPorZona) {
   id_departamento: INT <<FK>>
   fecha_inicio: DATE
   fecha_fin: DATE
+}
+
+'====================== Políticas ======================'
+
+table(PoliticaLegal) {
+  +id_politica: INT <<PK>>
+  tipo: VARCHAR
+  contenido: TEXT
+  fecha_actualizacion: DATE
 }
 
 '====================== Relaciones ======================'
@@ -175,7 +181,6 @@ Denuncia --> Usuario : reportante
 Denuncia --> Usuario : denunciado
 Verificacion --> Usuario
 
-' Relaciones de ubicación
 Usuario --> Departamento
 FiltrarTrabajosPorZona --> Usuario
 FiltrarTrabajosPorZona --> Departamento
@@ -184,5 +189,4 @@ Avenida --> Comunidad
 Comunidad --> Distrito
 Distrito --> Provincia
 Provincia --> Departamento
-
 @enduml
