@@ -10,7 +10,7 @@ table(Usuario) {
   nombre: VARCHAR
   apellido: VARCHAR
   telefono: VARCHAR
-  DNI: CHAR
+  documento_identidad: CHAR
   correo: VARCHAR
   contraseña: VARCHAR
   fecha_nacimiento: DATE
