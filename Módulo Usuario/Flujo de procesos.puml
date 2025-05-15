@@ -1,0 +1,42 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam activity {
+  StartColor #90EE90
+  EndColor #FF7F7F
+  DiamondBackgroundColor #FFFF99
+  ArrowColor Black
+}
+
+start
+
+:Registrar usuario;
+:Validar identidad (SMS o documento);
+:Verificar edad mínima;
+
+:Completar perfil laboral;
+:Indicar habilidades;
+:Definir disponibilidad;
+:Seleccionar zona o departamento;
+
+:Configurar preferencias de notificación;
+:Recibir ofertas compatibles;
+
+if ("¿Desea postular a un trabajo?") then (sí)
+  :Postular con un clic;
+  :Enviar mensaje al empleador (opcional);
+  :Esperar respuesta del empleador;
+endif
+
+if ("¿Fue contratado?") then (sí)
+  :Realizar trabajo;
+  :Recibir calificación del empleador;
+  :Calificar al empleador;
+endif
+
+if ("¿Desea reportar un problema?") then (sí)
+  :Enviar denuncia desde el perfil o historial;
+  :Esperar revisión legal o administrativa;
+endif
+
+stop
+@enduml
