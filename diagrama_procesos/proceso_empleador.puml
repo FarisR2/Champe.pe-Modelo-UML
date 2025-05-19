@@ -1,0 +1,37 @@
+@startuml proceso_empleador
+start
+
+:Registrar empresa;
+:Validar existencia de la empresa;
+
+if (¿Empresa registrada?) then (sí)
+  :Publicar trabajo;
+  :Crear publicación;
+  :Especificar fecha;
+  :Editar y eliminar publicación;
+
+  if (¿Desea modalidad de trabajo?) then (sí)
+    :Elegir modalidad de trabajo;
+  endif
+
+  if (¿Desea subir fotos?) then (sí)
+    :Subir fotos del lugar;
+  endif
+
+  :Buscar trabajadores;
+  :Filtrar por disponibilidad;
+
+  if (¿Buscar cercanos?) then (sí)
+    :Ver trabajadores cercanos;
+  endif
+
+  if (¿Aplicar filtros de confianza?) then (sí)
+    :Aplicar filtros de confianza;
+  endif
+
+else (no)
+  stop
+endif
+
+stop
+@enduml
